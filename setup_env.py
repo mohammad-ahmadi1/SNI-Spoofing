@@ -7,11 +7,13 @@ from pathlib import Path
 
 
 def run(cmd: list[str]) -> None:
+    """Run a command and fail immediately if it exits with a non-zero status."""
     print(">", " ".join(cmd))
     subprocess.run(cmd, check=True)
 
 
 def main() -> int:
+    """Create project virtualenv, install dependencies, and print next steps."""
     project_dir = Path(__file__).resolve().parent
     venv_dir = project_dir / ".venv"
     is_windows = platform.system() == "Windows"
