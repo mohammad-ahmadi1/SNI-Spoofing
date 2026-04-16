@@ -1,15 +1,47 @@
 # SNI-Spoofing
-Bypass DPI with IP/TCP-Header manipulation
 
-حمایت کنید کارهای بزرگی در دست انجام هست:
+A small Python project for SNI spoofing and DPI bypass experiments using TCP/TLS packet manipulation.
 
-USDT (BEP20): 0x76a768B53Ca77B43086946315f0BDF21156bF424
+## Features
+- Local TCP listener
+- Fake TLS ClientHello injection with configurable SNI
+- Packet interception using WinDivert (`pydivert`)
+- Configurable target IP/port and listen address
 
-USDT (TRC20): TU5gKvKqcXPn8itp1DouBCwcqGHMemBm8o
+## Requirements
+- Python 3.10+
+- Windows (required for WinDivert/`pydivert`)
+- Administrator privileges (needed for packet interception)
 
+## Quick Setup
+Run the setup script:
 
+```bash
+python setup_env.py
+```
 
+This script creates a virtual environment and installs dependencies from `requirements.txt`.
 
-https://t.me/projectXhttp
+## Configuration
+Edit `config.json`:
 
-https://t.me/patterniha
+```json
+{
+  "LISTEN_HOST": "0.0.0.0",
+  "LISTEN_PORT": 40443,
+  "CONNECT_IP": "188.114.98.0",
+  "CONNECT_PORT": 443,
+  "FAKE_SNI": "auth.vercel.com"
+}
+```
+
+## Run
+After setup:
+
+```bash
+python main.py
+```
+
+## Notes
+- This project is for research and educational use.
+- Use only in environments where you have permission.
