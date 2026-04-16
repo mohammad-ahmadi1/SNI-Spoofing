@@ -14,6 +14,7 @@ def run(cmd: list[str]) -> None:
 def main() -> int:
     project_dir = Path(__file__).resolve().parent
     venv_dir = project_dir / ".venv"
+    is_windows = platform.system() == "Windows"
 
     if not venv_dir.exists():
         print("Creating virtual environment...")
@@ -21,7 +22,7 @@ def main() -> int:
     else:
         print("Virtual environment already exists.")
 
-    if platform.system().lower().startswith("win"):
+    if is_windows:
         py = venv_dir / "Scripts" / "python.exe"
     else:
         py = venv_dir / "bin" / "python"
@@ -31,7 +32,7 @@ def main() -> int:
     run([str(py), "-m", "pip", "install", "-r", str(project_dir / "requirements.txt")])
 
     print("\nSetup complete.")
-    if platform.system().lower().startswith("win"):
+    if is_windows:
         print(r"Activate venv: .\.venv\Scripts\activate")
     else:
         print("Activate venv: source .venv/bin/activate")
@@ -41,7 +42,7 @@ def main() -> int:
 
 if __name__ == "__main__":
     try:
-        raise SystemExit(main())
+        sys.exit(main())
     except subprocess.CalledProcessError as exc:
         print(f"Setup failed with exit code {exc.returncode}")
-        raise SystemExit(exc.returncode)
+        sys.exit(exc.returncode)
